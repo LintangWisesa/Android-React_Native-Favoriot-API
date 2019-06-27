@@ -1,0 +1,3 @@
+rootProject.name = 'Favoriot_API_ReactNative'
+
+include ':app'
