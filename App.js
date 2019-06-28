@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Alert, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import {Alert, Text, View, TextInput, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native'
 
 class App extends Component {
 constructor(){
@@ -88,6 +88,19 @@ render() {
 
     <View style={{flexDirection:'column',alignItems:'center'}}>
       <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" />
+      <FlatList
+        data={[
+          {key: 'Devin'},
+          {key: 'Jackson'},
+          {key: 'James'},
+          {key: 'Joel'},
+          {key: 'John'},
+          {key: 'Jillian'},
+          {key: 'Jimmy'},
+          {key: 'Julie'},
+        ]}
+        renderItem={({item}) => <Text>{item.key}</Text>}
+      />
     {/* // {data} */}
     </View>
 
