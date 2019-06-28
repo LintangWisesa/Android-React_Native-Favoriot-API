@@ -7,16 +7,6 @@ constructor(){
   super();
   this.state = {
     dataku: [],
-    tes: [
-      {key: 'Devin'},
-      {key: 'Jackson'},
-      {key: 'James'},
-      {key: 'Joel'},
-      {key: 'John'},
-      {key: 'Jillian'},
-      {key: 'Jimmy'},
-      {key: 'Julie'},
-    ]
   };
 }
 
@@ -110,16 +100,28 @@ render() {
       </TouchableOpacity>
     </View>
 
-    <View style={{flexDirection:'column', alignItems:'flex-start', marginLeft:15}}>
+    <View style={{flexDirection:'column', alignItems:'center'}}>
       {
         this.state.tes ?
         <FlatList
           data={this.state.dataku}
           renderItem={
             ({item, index}) => 
-            <Text style={{fontSize: 16}} key={index}>
-              🌡 {item.data.Temperature} °C 💧 {item.data.Humidity} % 🕹 {item.data.Potentio}
-            </Text>}
+            <View style={{flexDirection:'row', justifyContent:'center'}}>
+              <Text style={{fontSize: 16, marginHorizontal: 5}}>
+                ⏰ {item.stream_created_at.split('T')[0]}
+              </Text>
+              <Text style={{fontSize: 16, marginHorizontal: 5}}>
+                🌡 {item.data.Temperature} °C
+              </Text>
+              <Text style={{fontSize: 16, marginHorizontal: 5}}>
+                💧 {item.data.Humidity} %
+              </Text>
+              <Text style={{fontSize: 16, marginHorizontal: 5}}>
+                🕹 {item.data.Potentio}
+              </Text>
+            </View>
+            }
           keyExtractor={(item, index) => index.toString()}
         /> :
         <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" />
