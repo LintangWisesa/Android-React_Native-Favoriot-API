@@ -20,25 +20,40 @@ klikGet = () => {
 render() {
   return (
   <View style={{backgroundColor:'#febfffa1', flex:1}} >
-    <View style={{flexDirection:'column', alignItems:'center'}}>
+    <View style={{flexDirection:'column', alignItems:'center', marginVertical: 10}}>
 
-    <Text style={{marginTop:20, fontSize:25, fontWeight:'bold' }}>
-    React Native ♥ Favoriot
-    </Text>
+      <Text style={{marginTop:20, fontSize:25, fontWeight:'bold' }}>
+      React Native ♥ Favoriot
+      </Text>
+    
+    </View>
 
-    <TextInput
-    placeholder='Insert data KEY here...'
-    style={{height: 55, width: 350, fontSize: 15}}
-    onChangeText={(input1) => this.setState({input1})}
-    value={this.state.input1}
-    />
+    <View style={{flexDirection:'row', justifyContent:'center'}}>
 
-    <TextInput
-    placeholder='Insert data VALUE here...'
-    style={{height: 55, width: 350, fontSize: 15}}
-    onChangeText={(input2) => this.setState({input2})}
-    value={this.state.input2}
-    />
+      <TextInput
+      placeholder='Temperature ...'
+      style={{height: 55, width: 120, fontSize: 15, marginHorizontal: 8}}
+      onChangeText={(input1) => this.setState({input1})}
+      value={this.state.input1}
+      underlineColorAndroid="#c33eb2ff"
+      />
+
+      <TextInput
+      placeholder='Humidity ...'
+      style={{height: 55, width: 120, fontSize: 15, marginHorizontal: 8}}
+      onChangeText={(input2) => this.setState({input2})}
+      value={this.state.input2}
+      underlineColorAndroid="#c33eb2ff"
+      />
+
+      <TextInput
+      placeholder='Potentio ...'
+      style={{height: 55, width: 120, fontSize: 15, marginHorizontal: 8}}
+      onChangeText={(input3) => this.setState({input3})}
+      value={this.state.input3}
+      underlineColorAndroid="#c33eb2ff"
+      />
+
     </View>
 
     <View style={{flexDirection:'row', justifyContent:'center'}}>
