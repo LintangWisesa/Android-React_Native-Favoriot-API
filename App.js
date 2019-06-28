@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Alert, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import {Alert, Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 
 class App extends Component {
 constructor(){
@@ -67,7 +67,7 @@ render() {
       onPress={this.klikPost}
       >
       <Text style={{fontSize:20,color:'white',fontWeight:'bold'}}>
-      POST
+        POST
       </Text>
       </TouchableOpacity>
 
@@ -81,12 +81,13 @@ render() {
       onPress={this.klikGet}
       >
       <Text style={{fontSize:20,color:'white',fontWeight:'bold'}}>
-      GET
+        GET
       </Text>
       </TouchableOpacity>
     </View>
 
     <View style={{flexDirection:'column',alignItems:'center'}}>
+      <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" />
     {/* // {data} */}
     </View>
 
