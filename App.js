@@ -1,11 +1,22 @@
 import React, { Component } from 'react'
 import {Alert, Text, View, TextInput, TouchableOpacity, ActivityIndicator, FlatList } from 'react-native'
+import axios from 'axios'
 
 class App extends Component {
 constructor(){
   super();
   this.state = {
     dataku: [],
+    tes: [
+      {key: 'Devin'},
+      {key: 'Jackson'},
+      {key: 'James'},
+      {key: 'Joel'},
+      {key: 'John'},
+      {key: 'Jillian'},
+      {key: 'Jimmy'},
+      {key: 'Julie'},
+    ]
   };
 }
 
@@ -14,10 +25,23 @@ klikPost = () => {
 } 
 
 klikGet = () => {
-  Alert.alert('Klik GET')
+  // Alert.alert('Klik GET')
+  var url = 'https://api.favoriot.com/v1/streams?device_developer_id=deviceDefault@Lintang_Wisesa&max=10';
+    axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxpbnRhbmdfV2lzZXNhIiwicmVhZF93cml0ZSI6dHJ1ZSwiaWF0IjoxNDkzODgyODczfQ.0n_FIr4vapSjewJE2e7cb-FTXs3JsUMTHsTgT2mYNFs'
+      }
+    })
+    .then((ambilData) => {
+      this.setState({
+        dataku: ambilData.data.results,
+      }) 
+    })
 } 
 
 render() {
+
   return (
   <View style={{backgroundColor:'#febfffa1', flex:1}} >
     <View style={{flexDirection:'column', alignItems:'center', marginVertical: 10}}>
@@ -86,21 +110,21 @@ render() {
       </TouchableOpacity>
     </View>
 
-    <View style={{flexDirection:'column',alignItems:'center'}}>
-      <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" />
-      <FlatList
-        data={[
-          {key: 'Devin'},
-          {key: 'Jackson'},
-          {key: 'James'},
-          {key: 'Joel'},
-          {key: 'John'},
-          {key: 'Jillian'},
-          {key: 'Jimmy'},
-          {key: 'Julie'},
-        ]}
-        renderItem={({item}) => <Text>{item.key}</Text>}
-      />
+    <View style={{flexDirection:'column', alignItems:'flex-start', marginLeft:15}}>
+      {
+        this.state.tes ?
+        <FlatList
+          data={this.state.dataku}
+          renderItem={
+            ({item, index}) => 
+            <Text style={{fontSize: 16}} key={index}>
+              🌡 {item.data.Temperature} °C 💧 {item.data.Humidity} % 🕹 {item.data.Potentio}
+            </Text>}
+          keyExtractor={(item, index) => index.toString()}
+        /> :
+        <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" />
+      }
+      
     {/* // {data} */}
     </View>
 
