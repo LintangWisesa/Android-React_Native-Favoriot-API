@@ -7,27 +7,61 @@ constructor(){
   super();
   this.state = {
     dataku: [],
+    isLoading: false
   };
 }
 
 klikPost = () => {
-  Alert.alert('Klik POST')
+  this.setState({
+    isLoading: true
+  })
+  var url = 'https://api.favoriot.com/v1/streams?device_developer_id=deviceDefault@Lintang_Wisesa&max=10';
+  axios.get(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxpbnRhbmdfV2lzZXNhIiwicmVhZF93cml0ZSI6dHJ1ZSwiaWF0IjoxNDkzODgyODczfQ.0n_FIr4vapSjewJE2e7cb-FTXs3JsUMTHsTgT2mYNFs'
+    }
+  })
+  .then((ambilData) => {
+    this.setState({
+      dataku: ambilData.data.results,
+      isLoading: false
+    }) 
+  })
+  .catch(()=>{
+    this.setState({
+      isLoading: false
+    })
+    Alert.alert(
+      // 'Failed to POST data to Favoriot.\nCheck your connection & try again.'
+      this.state.input1 + this.state.input2 + this.state.input3
+    )
+  })
 } 
 
 klikGet = () => {
-  // Alert.alert('Klik GET')
+  this.setState({
+    isLoading: true
+  })
   var url = 'https://api.favoriot.com/v1/streams?device_developer_id=deviceDefault@Lintang_Wisesa&max=10';
-    axios.get(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxpbnRhbmdfV2lzZXNhIiwicmVhZF93cml0ZSI6dHJ1ZSwiaWF0IjoxNDkzODgyODczfQ.0n_FIr4vapSjewJE2e7cb-FTXs3JsUMTHsTgT2mYNFs'
-      }
+  axios.get(url, {
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxpbnRhbmdfV2lzZXNhIiwicmVhZF93cml0ZSI6dHJ1ZSwiaWF0IjoxNDkzODgyODczfQ.0n_FIr4vapSjewJE2e7cb-FTXs3JsUMTHsTgT2mYNFs'
+    }
+  })
+  .then((ambilData) => {
+    this.setState({
+      dataku: ambilData.data.results,
+      isLoading: false
+    }) 
+  })
+  .catch(()=>{
+    this.setState({
+      isLoading: false
     })
-    .then((ambilData) => {
-      this.setState({
-        dataku: ambilData.data.results,
-      }) 
-    })
+    Alert.alert('Failed to GET data from Favoriot.\nCheck your connection & try again.')
+  })
 } 
 
 render() {
@@ -50,6 +84,7 @@ render() {
       onChangeText={(input1) => this.setState({input1})}
       value={this.state.input1}
       underlineColorAndroid="#c33eb2ff"
+      keyboardType='number-pad'
       />
 
       <TextInput
@@ -58,6 +93,7 @@ render() {
       onChangeText={(input2) => this.setState({input2})}
       value={this.state.input2}
       underlineColorAndroid="#c33eb2ff"
+      keyboardType='number-pad'
       />
 
       <TextInput
@@ -66,6 +102,7 @@ render() {
       onChangeText={(input3) => this.setState({input3})}
       value={this.state.input3}
       underlineColorAndroid="#c33eb2ff"
+      keyboardType='number-pad'
       />
 
     </View>
@@ -102,7 +139,14 @@ render() {
 
     <View style={{flexDirection:'column', alignItems:'center'}}>
       {
-        this.state.tes ?
+        this.state.isLoading ?
+        <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" /> :
+        <Text></Text>
+      }
+      
+      {
+        this.state.dataku ?
+        <Text></Text> :
         <FlatList
           data={this.state.dataku}
           renderItem={
@@ -123,11 +167,9 @@ render() {
             </View>
             }
           keyExtractor={(item, index) => index.toString()}
-        /> :
-        <ActivityIndicator style={{margin: 20}} size="large" color="#c33eb2ff" />
+        />
       }
       
-    {/* // {data} */}
     </View>
 
   </View>
