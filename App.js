@@ -25,25 +25,28 @@ class App extends Component {
     var dataBody = {
       device_developer_id: "deviceDefault@Lintang_Wisesa",
       data: {
-        temperature: this.state.input1,
-        humidity: this.state.input2,
-        potentio: this.state.input3,
+        Temperature: this.state.input1,
+        Humidity: this.state.input2,
+        Potentio: this.state.input3,
       }
     }
-    axios.post(url, header, dataBody)
+    axios.post(url, dataBody, header)
     .then((ambilData) => {
       this.setState({
-        dataku: ambilData.data.results,
+        // dataku: ambilData.data.results,
         isLoading: false
-      }) 
+      })
+      Alert.alert(
+        'Success POST data to Favoriot!'
+      )
+      this.klikGet()
     })
     .catch(()=>{
       this.setState({
         isLoading: false
       })
       Alert.alert(
-        // 'Failed to POST data to Favoriot.\nCheck your connection & try again.'
-        this.state.input1 + this.state.input2 + this.state.input3
+        'Failed to POST data to Favoriot.\nCheck your connection & try again.'
       )
     })
   } 
@@ -155,7 +158,6 @@ class App extends Component {
           
           {
             this.state.dataku ?
-            <Text></Text> :
             <FlatList
               data={this.state.dataku}
               renderItem={
@@ -176,7 +178,8 @@ class App extends Component {
                 </View>
                 }
               keyExtractor={(item, index) => index.toString()}
-            />
+            /> :
+            <Text></Text>
           }
           
         </View>
